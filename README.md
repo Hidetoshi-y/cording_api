@@ -22,3 +22,4 @@ WebAPIのサービス作成
 #　参考サイト
 https://qiita.com/tomson784/items/406281bef7a5b2eb3cd8
 https://sitest.jp/blog/?p=10459ß
+https://qiita.com/nagataaaas/items/4662237cfb7b92f0f839
