@@ -7,6 +7,7 @@ WebAPIのサービス作成
 - README.md これ
 - sample flaskの動きを確認する実験部屋
 - setup.hs Pythonの環境構築
+- .gitignore 
 
 # 動かし方
 ---初回-----
@@ -18,15 +19,15 @@ WebAPIのサービス作成
 1. `./run.sh`
 
 
-
 #　参考サイト
+
 FlaskのAPIの例
 
 https://qiita.com/tomson784/items/406281bef7a5b2eb3cd8
 
 FlaskのAPIの例２
-https://sitest.jp/blog/?p=10459ß
 
+https://sitest.jp/blog/?p=10459ß
 
 render_templateの利用
 
