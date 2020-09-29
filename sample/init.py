@@ -1,4 +1,7 @@
 from flask import Flask, request, jsonify
+from flask import request, render_template
+
+
 
 app = Flask(__name__)
 
@@ -20,7 +23,8 @@ def search_user(user_id):
     'name': 'Tarou',
     'age': 23
    }
-   return jsonify(user)
+
+   return jsonify(user)#json形式で引数を表示する？
 
 if __name__ == '__main__':
     app.run()
