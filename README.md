@@ -5,7 +5,7 @@ WebAPIのサービス作成
 
 # 内容物
 - README.md これ
-- test/ 実験用ディレクトリ
+- sample flaskの動きを確認する実験部屋
 - setup.hs Pythonの環境構築
 
 # 動かし方
