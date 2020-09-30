@@ -6,7 +6,7 @@ WebAPIのサービス作成
 # 内容物
 - README.md これ
 - setup.hs Pythonの環境構築
-- .gitignore 
+- .gitignore git_hubには上がらないもの
 - app.py flaskで記述した処理が書かれたページ
 - templates/ 表示用のHTMLページが保存されている。
 - run.sh 実行するスクリプト
