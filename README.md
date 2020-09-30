@@ -14,9 +14,13 @@ WebAPIのサービス作成
 ## templates
 
 templates/
+
     |-mainpage.html
+
     |-number2kanji.html
+
     |-kanji2number.html
+    
     |-erroe.html
 
 # 動かし方
