@@ -10,6 +10,7 @@ WebAPIのサービス作成
 - .gitignore 
 - app.py flaskで記述した処理が書かれたページ
 - templates/ 表示用のHTMLページが保存されている。
+- run.sh 実行するスクリプト
 
 # 動かし方
 ---初回-----
