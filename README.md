@@ -12,6 +12,14 @@ WebAPIのサービス作成
 - templates/ 表示用のHTMLページが保存されている。
 - run.sh 実行するスクリプト
 
+## templates
+
+templates/
+    |-mainpage.html
+    |-number2kanji.html
+    |-kanji2number.html
+    |-erroe.html
+
 # 動かし方
 ---初回-----
 
