@@ -5,7 +5,6 @@ WebAPIのサービス作成
 
 # 内容物
 - README.md これ
-- sample flaskの動きを確認する実験部屋
 - setup.hs Pythonの環境構築
 - .gitignore 
 - app.py flaskで記述した処理が書かれたページ
