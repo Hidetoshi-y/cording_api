@@ -20,7 +20,7 @@ templates/
     |-number2kanji.html
 
     |-kanji2number.html
-    
+
     |-erroe.html
 
 # 動かし方
@@ -33,7 +33,7 @@ templates/
 1. `./run.sh`
 
 
-#　参考サイト
+# 参考サイト
 
 FlaskのAPIの例
 
