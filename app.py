@@ -37,24 +37,30 @@ def convert_simple_kanji(number):
 
 
 def under_1000(number):
+
+    #桁数分だけ桁を入れて桁数の漢数字が０のときに両方を消す。
+
     new_number = []
     number = list(number)
 
     for i in range(len(number)):
         new_number.append(convert_simple_kanji(str(number[i])))
 
+        
 
-    if len(number) == 3:
-        new_number.append("拾", -1)
-        new_number.append("百", -3)
-        new_number.append("千", -5)
-    elif len(number) == 2:
-        new_number.append("拾", -1)
-        new_number.append("百", -3)
-    elif len(number) == 1:
-        new_number.append("拾", -1)
-    else:
-        pass
+    for l in range(len(new_number)):
+
+        if l == 3:
+            #new_number.insert(-1, "拾")
+            #new_number.insert(-3, "百")
+            new_number.insert(-5, "千")
+        elif l == 2:
+            #new_number.insert(-1, "拾")
+            new_number.insert(-3, "百")
+        elif l == 1:
+            new_number.insert(-1, "拾")
+        else:
+            pass
 
     return new_number
 
