@@ -3,6 +3,8 @@ from flask import *
 
 app = Flask(__name__)
 
+
+
 def convert_simple_kanji(number):
     number = int(number)
     """
@@ -30,39 +32,56 @@ def convert_simple_kanji(number):
         7:"七",
         8:"八",
         9:"九"
-
     }
-
     return chars.get(number,1)
 
-
 def under_1000(number):
-
     #桁数分だけ桁を入れて桁数の漢数字が０のときに両方を消す。
 
+    #４桁分の処理をいれる配列
     new_number = []
-    number = list(number)
 
+    #獲得した文字列を配列で処理する
+    number = list(number)
+    
+    #まず配列の数字を全て漢字に変換
     for i in range(len(number)):
         new_number.append(convert_simple_kanji(str(number[i])))
 
-        
+    for j in range(len(new_number)):
 
-    for l in range(len(new_number)):
-
-        if l == 3:
-            #new_number.insert(-1, "拾")
-            #new_number.insert(-3, "百")
+        if j == 3:
             new_number.insert(-5, "千")
-        elif l == 2:
-            #new_number.insert(-1, "拾")
+        elif j == 2:
             new_number.insert(-3, "百")
-        elif l == 1:
+        elif j == 1:
             new_number.insert(-1, "拾")
         else:
             pass
+    
+    #零の後ろの単位を消去するためのリスト作り
+    ##零の位置を特定
+    del_list = [i for i, x in enumerate(new_number) if x == '零']
+
+    ##特定した零の位置から後ろの単位を削除
+    del_add_list = []
+    for k, l in enumerate(del_list):
+        if l == 6:
+            pass
+        else:
+            l += 1
+            del_add_list.append(l)
+    del_list = del_list + del_add_list
+
+    #指定したインデックスを削除する関数
+    dellist = lambda items, indexes: [item for index, item in enumerate(items) if index not in indexes]
+    new_number = dellist(new_number, del_list)
 
     return new_number
+
+def input_number_division(name):
+    """入力文字列を４桁に区切って拾百千を付け加えた後に万億を追加する。 """
+    
 
 
 
@@ -75,8 +94,9 @@ def main_page():
 
 
 @app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #数字漢数字変換
+
 def number2kanjie(name):
-    #name = int(name) - int(30)
+    #①入力が０の場合　②入力が指定範囲の場合 ③入力が指定範囲外の場合を用意　
     name = under_1000(name)
 
     return render_template("number2kanji.html", name=name)
