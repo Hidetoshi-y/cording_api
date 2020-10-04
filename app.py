@@ -4,32 +4,36 @@ from flask import *
 app = Flask(__name__)
 
 def convert_simple_kanji(number):
+    number = int(number)
+    """
+    chars= {
+        "零":0,
+        "壱":1,
+        "弐":2,
+        "参":3,
+        "四":4,
+        "五":5,
+        "六":6,
+        "七":7,
+        "八":8,
+        "九":9,
+    }"""
 
-    
-    if number == "0":
-        number = "零"
-    elif number == "1":
-        number = "壱"
-    elif number == "2":
-        number = "弐"
-    elif number == "3":
-        number = "参"
-    elif number == "4":
-        number = "四"
-    elif number == "5":
-        number = "五"
-    elif number == "6":
-        number = "六"
-    elif number == "7":
-        number = "七"
-    elif number == "8":
-        number = "八"
-    elif number == "9":
-        number = "九"
-    else:
-        pass
+    chars= {
+        0:"零",
+        1:"壱",
+        2:"弐",
+        3:"参",
+        4:"四",
+        5:"五",
+        6:"六",
+        7:"七",
+        8:"八",
+        9:"九"
 
-    return number
+    }
+
+    return chars.get(number,1)
 
 
 
