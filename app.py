@@ -86,6 +86,40 @@ def input_number_division(name):
     #最大で４つに別れる。
     number = list(name)
 
+    for i in range(16):
+        if len(number) == 16:
+            break
+        else:
+            number.insert(0, "0")
+
+    number = np.array(number)
+
+    number = number.reshape([-1,4])
+
+    consert_list = []
+    for i, j in enumerate(number):
+        name = under_1000(j)
+
+        consert_list += name
+
+        if i == 0 and len(consert_list) >= 1:
+            consert_list.append("兆")
+        elif i == 1 and len(consert_list) >=1:
+            consert_list.append("億")
+        elif i == 2 and len(consert_list) >=1:
+            consert_list.append("万")
+    
+    number = consert_list
+
+
+
+    
+
+
+
+    #for でname = under_1000(name)を実行して最後に兆万億を追加する。
+    
+    #number = int(len(number)) % 4
 
 
     
@@ -105,9 +139,9 @@ def main_page():
 
 def number2kanjie(name):
     #①入力が０の場合　②入力が指定範囲の場合 ③入力が指定範囲外の場合を用意　
-    #name = under_1000(name)　成功例１
+    #name = under_1000(name)
 
-    name = input_number_division(name)
+    name = input_number_division(name)#②
 
     return render_template("number2kanji.html", name=name)
     #http://localhost:8888/v1/number2kanji/100

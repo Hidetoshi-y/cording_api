@@ -46,3 +46,8 @@ https://sitest.jp/blog/?p=10459ß
 render_templateの利用
 
 https://qiita.com/nagataaaas/items/4662237cfb7b92f0f839
+
+配列の削除を配列で
+
+https://qiita.com/saa/items/d18a36d764c74fc8bf26
+
