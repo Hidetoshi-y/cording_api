@@ -111,20 +111,15 @@ def input_number_division(name):
     
     number = consert_list
 
-
-
-    
-
-
-
-    #for でname = under_1000(name)を実行して最後に兆万億を追加する。
-    
-    #number = int(len(number)) % 4
-
-
+    number = "".join(map(str, number))
     
     return number
 
+"""
+input_number_division -> under_1000 -> convert_simple_kanji
+
+n
+"""
 
 
 
