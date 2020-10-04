@@ -1,13 +1,19 @@
 from types import SimpleNamespace
 from flask import *
+import re
 
 app = Flask(__name__)
 
-def convert_simple_kanji(number):
-    number = int(number)
-    """
-    chars= {
-        "零":0,
+
+
+class Kansuuji():
+    def __init__(self,text=""):
+        #不正な文字列に対するバリデーションがあるとよい。
+        self.kan=text
+
+
+    def _convert_single_KAN(self,one):
+        """chars={
         "壱":1,
         "弐":2,
         "参":3,
@@ -17,9 +23,12 @@ def convert_simple_kanji(number):
         "七":7,
         "八":8,
         "九":9,
-    }"""
+        "十":10,
+        "百":100,
+        "千":1000
+        }"""
 
-    chars= {
+        chars= {
         0:"零",
         1:"壱",
         2:"弐",
@@ -29,28 +38,60 @@ def convert_simple_kanji(number):
         6:"六",
         7:"七",
         8:"八",
-        9:"九"
+        9:"九",
+        10:"十",
+        100:"百",
+        1000:"千"
+        }
+        return chars.get(one,1)    #十三など、一のつかないものに対応するため、getで1を返させている。
 
-    }
+    def _change_num_under1000(self,text):
 
-    return chars.get(number,1)
+        C=self._convert_single_KAN
+        val=0
+
+        kans=(    
+            ("千",1000),
+            ("百",100),
+            ("十",10)
+        )    #処理順を保つためディクショナリは回避。
+
+        for kan,num in kans:
+            pat="([二三四五六七八九])?{}(.*)".format(kan)
+            matobj=re.match(pat,text)
+            if matobj:
+                val+=C(matobj.group(1))*num
+                text=matobj.group(2)
+
+        if text:    #一の位を処理
+            val +=C(text)
+
+        return val
+
+    def _change_num_over1000(self,text):
+        val=0
+        C2=self._change_num_under1000
+
+        kans=(
+            ("兆",1000000000000),
+            ("億",100000000),
+            ("万",10000)
+        )    
+
+        for kan,num in kans:
+            pat="([一二三四五六七八九十百千]+){}(.*)".format(kan)
+            matobj=re.match(pat,text)
+            if matobj:
+                val+=C2(matobj.group(1))*num
+                text=matobj.group(2)
+
+        return text,val
 
 
-    def under_1000(number):
-        #4桁だけの場合
-
-
-
-def _convert_kanji(number):
-    number = list(number)
-    numbers = len(number)
-    new_number = []
-
-    """
-    for i in range(numbers):
-        new_number += convert_simple_kanji(number[i])#表示されている数字を漢数字に変換可能"""
-
-    return new_number
+    def get_arabic(self,text=None):
+        text=text if text else self.kan    #インスタンス作成時に引数を与えなくても動くようにしてみた。（こういうのはよくない？？）
+        text,val=self._change_num_over1000(text)
+        return val+self._change_num_under1000(text)
 
 
 
@@ -67,7 +108,7 @@ def main_page():
 @app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #数字漢数字変換
 def number2kanjie(name):
     #name = int(name) - int(30)
-    name = _convert_kanji(name)
+    name = Kansuuji(name)
 
     return render_template("number2kanji.html", name=name)
     #http://localhost:8888/v1/number2kanji/100

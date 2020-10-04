@@ -36,23 +36,27 @@ def convert_simple_kanji(number):
     return chars.get(number,1)
 
 
-    def under_1000(number):
-        #4桁だけの場合
-
-
-
-def _convert_kanji(number):
-    number = list(number)
-    numbers = len(number)
+def under_1000(number):
     new_number = []
+    number = list(number)
 
-    """
-    for i in range(numbers):
-        new_number += convert_simple_kanji(number[i])#表示されている数字を漢数字に変換可能"""
+    for i in range(len(number)):
+        new_number.append(convert_simple_kanji(str(number[i])))
+
+
+    if len(number) == 3:
+        new_number.append("拾", -1)
+        new_number.append("百", -3)
+        new_number.append("千", -5)
+    elif len(number) == 2:
+        new_number.append("拾", -1)
+        new_number.append("百", -3)
+    elif len(number) == 1:
+        new_number.append("拾", -1)
+    else:
+        pass
 
     return new_number
-
-
 
 
 
@@ -67,7 +71,7 @@ def main_page():
 @app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #数字漢数字変換
 def number2kanjie(name):
     #name = int(name) - int(30)
-    name = _convert_kanji(name)
+    name = under_1000(name)
 
     return render_template("number2kanji.html", name=name)
     #http://localhost:8888/v1/number2kanji/100

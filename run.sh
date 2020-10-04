@@ -1,3 +1,1 @@
-#python app.py 
-
-python app2.py
+python app.py 
