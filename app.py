@@ -134,7 +134,9 @@ def main_page():
 
 def number2kanjie(name):
     #①入力が０の場合　②入力が指定範囲の場合 ③入力が指定範囲外の場合を用意　
-    #name = under_1000(name)
+    
+    #①nameが０の時に零を返す 漢字2数字も同じ
+    #③nameが範囲外のときにエラーを返す 漢字2数字も同じ
 
     name = input_number_division(name)#②
 
