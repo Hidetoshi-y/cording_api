@@ -1,6 +1,8 @@
 from types import SimpleNamespace
 from flask import *
 
+import numpy as np
+
 app = Flask(__name__)
 
 
@@ -80,8 +82,14 @@ def under_1000(number):
     return new_number
 
 def input_number_division(name):
-    """入力文字列を４桁に区切って拾百千を付け加えた後に万億を追加する。 """
+    """入力文字列を４桁に区切って拾百千を付け加えた後に兆万億を追加する。 """
+    #最大で４つに別れる。
+    number = list(name)
+
+
+
     
+    return number
 
 
 
@@ -97,7 +105,9 @@ def main_page():
 
 def number2kanjie(name):
     #①入力が０の場合　②入力が指定範囲の場合 ③入力が指定範囲外の場合を用意　
-    name = under_1000(name)
+    #name = under_1000(name)　成功例１
+
+    name = input_number_division(name)
 
     return render_template("number2kanji.html", name=name)
     #http://localhost:8888/v1/number2kanji/100
