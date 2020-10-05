@@ -1,1 +1,3 @@
-python app.py 
+while [ true ]; do
+    python app.py 
+done
