@@ -269,4 +269,4 @@ def kanji2number(name):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8888, threaded=True)
+    app.run(debug=True, host='localhost', port=5002, threaded=True)
