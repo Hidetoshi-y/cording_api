@@ -2,3 +2,6 @@
 bbs_api
 sample_old/
 .DS_Store
+.gitignore_old
+.pyenv/
+app.py_old
