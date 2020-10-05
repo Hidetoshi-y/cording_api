@@ -1,17 +1,11 @@
 from types import SimpleNamespace
 from typing import Pattern
 from flask import *
-
 import numpy as np
-
 import re
 import urllib.parse
 
-
-
 app = Flask(__name__)
-
-
 
 def convert_simple_kanji(number):
     number = int(number)
@@ -106,7 +100,6 @@ def input_number_division(name):
     number = "".join(map(str, number))
     
     return number
-
 
 def convert_simple_number(number): #漢字->数字
     #number = int(number)
@@ -253,19 +246,6 @@ def kanji2number(name):
 
 
     return return_html
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

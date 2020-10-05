@@ -10,6 +10,12 @@ WebAPIのサービス作成
 - run.sh
 - setup.sh
 - test_check
+- requirements.txt
+
+# 動作環境
+Python 3.6.9
+ライブラリ -> requirements.txt参照
+
 
 ## templates
 
