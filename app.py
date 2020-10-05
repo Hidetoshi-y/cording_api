@@ -232,41 +232,17 @@ def kanji2number(name):
             else:
                 return_html = render_template("error.html", name=name)
 
-        """
-        ここアラビア数字を数字に変換する関数を記述する。
-        name = input_number_division(name)
-        return_html = render_template("kanji2number.html", name=name)
-        """
         big_unit = ["兆","億","万"]
         short_unit = ["千","百","拾"]
-        #name = parse_kanji(name, big_unit)
         
-
         name = calc_all(name, big_unit, short_unit)
-
-
         return_html = render_template("kanji2number.html", name=name)
 
 
     else: #③入力されたエンドポイントが漢数字では無い　かつ　範囲外
         return_html = render_template("error.html", name=name)
 
-
     return return_html
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8888, threaded=True)
