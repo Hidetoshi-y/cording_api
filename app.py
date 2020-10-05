@@ -133,15 +133,21 @@ def main_page():
 @app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #数字漢数字変換
 
 def number2kanjie(name):
-    #①入力が０の場合　②入力が指定範囲の場合 ③入力が指定範囲外の場合を用意　
     
-    #①nameが０の時に零を返す 漢字2数字も同じ
-    #③nameが範囲外のときにエラーを返す 漢字2数字も同じ
+    return_html = ()
 
-    name = input_number_division(name)#②
+    if name == "0": #①入力時[0]のときに零を返す。
+        name = "零"
+        return_html = render_template("number2kanji.html", name=name)
 
-    return render_template("number2kanji.html", name=name)
-    #http://localhost:8888/v1/number2kanji/100
+    elif 1 <= int(name) and 10000000000000000 >= int(name): #②入力が[1]~[9999999999999999]の時　数字2漢数字　を実行する。
+        name = input_number_division(name)
+        return_html = render_template("number2kanji.html", name=name)
+
+    else: #③入力されたエンドポイントが[0]~[9999999999999999]以外の時
+        return_html = render_template("error.html", name=name)
+
+    return return_html
 
 
 @app.route("/v1/kanji2number/<name>", methods=["GET", "POST"]) #漢数字数字変換
