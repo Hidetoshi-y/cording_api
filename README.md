@@ -14,6 +14,7 @@ WebAPIのサービス作成
 
 # 動作環境
 Python 3.6.9
+
 ライブラリ -> requirements.txt参照
 
 
@@ -39,11 +40,15 @@ templates/
 1. `./run.sh`
 
 2. ローカルで動作確認する場合
+
 `0.0.0.0:5002/v1/kanji2number/{}`
+
 `0.0.0.0:5002/v1/kanji2number/{}`
 
 3. WebAPIでアクセスする場合
+
 `https://yamada.jo.sus.ac.jp/v1/kanji2number/{}`
+
 `https://yamada.jo.sus.ac.jp/v1/number2kanji/{}`
 
 # 参考サイト
