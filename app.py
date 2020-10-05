@@ -200,7 +200,7 @@ def number2kanjie(name):
         name = "零"
         return_html = render_template("number2kanji.html", name=name)
 
-    elif 1 <= int(name) and 10000000000000000 >= int(name): #②入力が[1]~[9999999999999999]の時　数字2漢数字　を実行する。
+    elif str.isdecimal(name) == True and  1 <= int(name) and 10000000000000000 >= int(name): #②入力が[1]~[9999999999999999]の時　数字2漢数字　を実行する。
         name = input_number_division(name)
         return_html = render_template("number2kanji.html", name=name)
 
