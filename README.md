@@ -3,13 +3,13 @@
 
 WebAPIのサービス作成
 
-# 内容物
-- README.md これ
-- setup.hs Pythonの環境構築
-- .gitignore git_hubには上がらないもの
-- app.py flaskで記述した処理が書かれたページ
-- templates/ 表示用のHTMLページが保存されている。
-- run.sh 実行するスクリプト
+# 内容物（ローカルで関係のあるもの）
+- .gitignore 
+- README.md 
+- app.py
+- run.sh
+- setup.sh
+- test_check
 
 ## templates
 
@@ -32,6 +32,13 @@ templates/
 
 1. `./run.sh`
 
+2. ローカルで動作確認する場合
+`0.0.0.0:5002/v1/kanji2number/{}`
+`0.0.0.0:5002/v1/kanji2number/{}`
+
+3. WebAPIでアクセスする場合
+`https://yamada.jo.sus.ac.jp/v1/kanji2number/{}`
+`https://yamada.jo.sus.ac.jp/v1/number2kanji/{}`
 
 # 参考サイト
 
