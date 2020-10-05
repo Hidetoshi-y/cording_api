@@ -1,7 +1,11 @@
 from types import SimpleNamespace
+from typing import Pattern
 from flask import *
 
 import numpy as np
+
+import re
+import urllib.parse
 
 app = Flask(__name__)
 
@@ -9,19 +13,6 @@ app = Flask(__name__)
 
 def convert_simple_kanji(number):
     number = int(number)
-    """
-    chars= {
-        "零":0,
-        "壱":1,
-        "弐":2,
-        "参":3,
-        "四":4,
-        "五":5,
-        "六":6,
-        "七":7,
-        "八":8,
-        "九":9,
-    }"""
 
     chars= {
         0:"零",
@@ -83,7 +74,6 @@ def under_1000(number):
 
 def input_number_division(name):
     """入力文字列を４桁に区切って拾百千を付け加えた後に兆万億を追加する。 """
-    #最大で４つに別れる。
     number = list(name)
 
     for i in range(16):
@@ -115,11 +105,64 @@ def input_number_division(name):
     
     return number
 
-"""
-input_number_division -> under_1000 -> convert_simple_kanji
 
-n
-"""
+def convert_simple_number(number): #漢字->数字
+    number = int(number)
+    chars= {
+        "零":0,
+        "壱":1,
+        "弐":2,
+        "参":3,
+        "四":4,
+        "五":5,
+        "六":6,
+        "七":7,
+        "八":8,
+        "九":9,
+        "拾":10,
+        "百":100,
+        "千":1000,
+    }
+    return chars.get(number,1)
+
+
+def parse_kanji(name):
+    #name = re.split('[兆億万]',name)#今のところまともそうなの
+    #name = re.split('[?=兆 ?=億 ?=万]',name)
+    #patter = "[ [^兆+兆?] [^億+億?] [^万+万?]]"
+
+    #name = re.split(".*?兆",name)
+
+
+
+    #name = re.split("[[^兆][^億][^万]]",name)
+
+    pattern = "[(?=>兆)(?=>億)(?=>万)]"
+    name  = re.split(pattern,name)
+
+
+    #name = input_kanji_divison(name[-1])
+
+    name = re.match(r'(?P<first>\w+) (?P<last>\w+)', 'Jane Doe')
+
+
+
+
+
+    return name
+
+
+def input_kanji_divison(name):
+    name = str(name)
+    pattern = "[(?=千)(?=百)(?=拾)]"
+    name  = re.split(pattern,name)
+
+    #
+
+
+
+    return name
+
 
 
 
@@ -130,10 +173,12 @@ def main_page():
     return render_template("mainpage.html")
 
 
-@app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #数字漢数字変換
+@app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #number2kanji
 
 def number2kanjie(name):
-    
+    name = urllib.parse.unquote(name)
+
+
     return_html = ()
 
     if name == "0": #①入力時[0]のときに零を返す。
@@ -150,11 +195,58 @@ def number2kanjie(name):
     return return_html
 
 
-@app.route("/v1/kanji2number/<name>", methods=["GET", "POST"]) #漢数字数字変換
+@app.route("/v1/kanji2number/<name>", methods=["GET", "POST"]) #kanji2number
+
 def kanji2number(name):
-    name = int(name) + int(30)
-    return render_template("kanji2number.html", name=name)
-    #http://localhost:8888/v1/kanji2number/100
+    name = urllib.parse.unquote(name)
+    return_html = ()
+
+    check_list = ["壱","弐","参","四","五","六","七","八","九","拾","百","千","万","億","兆"]
+
+    if name == "零": #①入力時[零]のときに0を返す。
+        name = "0"
+        return_html = render_template("kanji2number.html", name=name)
+
+
+    elif name.isalpha() and 31 >= len(list(name)): #②　31文字以下かつ漢数字でない場合
+        checker_lsit = list(name)
+
+        for i in range(len(name)): #指定されたリストに無い文字の場合
+            if str(checker_lsit[i]) in check_list:
+                pass
+            else:
+                return_html = render_template("error.html", name=name)
+
+        """
+        ここアラビア数字を数字に変換する関数を記述する。
+        name = input_number_division(name)
+        return_html = render_template("kanji2number.html", name=name)
+        """
+        big_["","",""]
+        name = parse_kanji(name)
+
+
+        return_html = render_template("kanji2number.html", name=name)
+
+
+    else: #③入力されたエンドポイントが漢数字では無い　かつ　範囲外
+        return_html = render_template("error.html", name=name)
+
+
+    return return_html
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
