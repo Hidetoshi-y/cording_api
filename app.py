@@ -131,25 +131,17 @@ def parse_kanji(name, list):
     mini_list = name
 
     for i in list :#3回実行
-        
-        #print(f"区切り文字{i}, 区切り対象{mini_list}")
         short_list = re.split(i, mini_list)
 
         if len(short_list) < 2 :
             mini_list = short_list[0]
         else:
-            #print("short_list ", short_list)
-
             all_list.append((short_list[0], i))
             mini_list = short_list[1]
-        #print("mini_list",mini_list)
-    
-        
 
     if len(mini_list) > 0:
         all_list.append((mini_list, "一"))
         
-
     return all_list
 
 def calc_all(name, big_unit, short_unit):
@@ -157,8 +149,8 @@ def calc_all(name, big_unit, short_unit):
     sum = 0
 
     for i in name_2:
-        a = convert_simple_number(i[1])
 
+        a = convert_simple_number(i[1])
         name_3 = parse_kanji(i[0], short_unit)
         z = 0
 
@@ -171,22 +163,14 @@ def calc_all(name, big_unit, short_unit):
 
     return sum 
 
-
-
-
-
-
 @app.route("/", methods=["GET", "POST"])#ルートで表示するページ
 def main_page():
     return render_template("mainpage.html")
 
 
 @app.route("/v1/number2kanji/<name>", methods=["GET", "POST"]) #number2kanji
-
 def number2kanjie(name):
     name = urllib.parse.unquote(name)
-
-
     return_html = ()
 
     if name == "0": #①入力時[0]のときに零を返す。
@@ -204,7 +188,6 @@ def number2kanjie(name):
 
 
 @app.route("/v1/kanji2number/<name>", methods=["GET", "POST"]) #kanji2number
-
 def kanji2number(name):
     name = urllib.parse.unquote(name)
     return_html = ()
@@ -225,28 +208,17 @@ def kanji2number(name):
             else:
                 return_html = render_template("error.html", name=name)
 
-        """
-        ここアラビア数字を数字に変換する関数を記述する。
-        name = input_number_division(name)
-        return_html = render_template("kanji2number.html", name=name)
-        """
         big_unit = ["兆","億","万"]
         short_unit = ["千","百","拾"]
-        #name = parse_kanji(name, big_unit)
         
-
         name = calc_all(name, big_unit, short_unit)
 
-
         return_html = render_template("kanji2number.html", name=name)
-
 
     else: #③入力されたエンドポイントが漢数字では無い　かつ　範囲外
         return_html = render_template("error.html", name=name)
 
-
     return return_html
-
 
 if __name__ == "__main__":
     app.run(debug=True, host='localhost', port=5002, threaded=True)
